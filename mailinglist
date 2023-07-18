@@ -1,4 +1,11 @@
-require [ "regex", "variables", "fileinto", "mailbox", "imap4flags" ];
+require [ "regex", "variables", "fileinto", "mailbox", "mime", "imap4flags" ];
+
+# mailing list shouldn't have HTML email
+if header :mime :anychild :contenttype
+		 "Content-Type" "text/html" {
+	keep;
+	stop;
+}
 
 if exists "list-id" {
 	if header :regex "list-id" "<([a-z_0-9-]+)[.@]" {
