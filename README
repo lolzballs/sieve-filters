@@ -1,0 +1,7 @@
+Use `sieve-connect` to manage sieve scripts on Migadu.
+
+Basically do:
+```
+> upload <filename> [scriptname]
+> activate <scriptname>
+```

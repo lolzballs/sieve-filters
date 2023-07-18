@@ -1,0 +1,17 @@
+require [ "regex", "variables", "fileinto", "mailbox", "imap4flags" ];
+
+if exists "list-id" {
+	if header :regex "list-id" "<([a-z_0-9-]+)[.@]" {
+		set :lower "listname" "${1}";
+		fileinto :create "${listname}";
+	} else {
+		if header :regex "list-id" "^\\\\s*<?([a-z_0-9-]+)[.@]" {
+			set :lower "listname" "${1}";
+			fileinto :create "${listname}";
+		} else {
+			keep;
+		}
+	}
+
+	stop;
+}
